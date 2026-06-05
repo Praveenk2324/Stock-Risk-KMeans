@@ -4,7 +4,7 @@ import os
 from sklearn.preprocessing import StandardScaler
 
 RAW_FILE_PATH = r"data\raw\Nifty_50_1y_dataset.csv"
-PROCESSED_PATH = r"data\processed"
+PROCESSED_PATH = r"data\processed\kmeans_ready.csv"
 
 def clean_and_scale(df):
     close_prices = df.xs(key='Close', axis=1, level=1).copy()
