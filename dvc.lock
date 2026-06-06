@@ -3,16 +3,20 @@ stages:
   preprocess:
     cmd: python src/preprocess.py
     deps:
-    - path: data\raw\Nifty_50_1y_dataset.csv
+    - path: data/raw/Nifty_50_1y_dataset.csv
       hash: md5
       md5: 0268dc0264918fd37a1e42ce210ce6bc
       size: 833279
     - path: src/preprocess.py
       hash: md5
-      md5: c5d8d52712a9842f5da55b43067737e7
-      size: 1367
+      md5: b5191b32ada1764400900d5a9e340b6a
+      size: 1591
     outs:
-    - path: data\processed\kmeans_ready.csv
+    - path: data/processed\kmeans_ready.csv
       hash: md5
       md5: 6319dee782ccb35b6613ea7608c415ad
       size: 1950
+    - path: models/scaler.pkl
+      hash: md5
+      md5: dfef4b05f6860b38578d370723a6e8b4
+      size: 903

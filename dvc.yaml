@@ -3,6 +3,7 @@ stages:
     cmd: python src/preprocess.py
     deps:
       - src/preprocess.py
-      - data\raw\Nifty_50_1y_dataset.csv
+      - data/raw/Nifty_50_1y_dataset.csv
     outs:
-      - data\processed\kmeans_ready.csv
+      - data/processed\kmeans_ready.csv
+      - models/scaler.pkl

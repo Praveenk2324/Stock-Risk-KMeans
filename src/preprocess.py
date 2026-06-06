@@ -1,12 +1,14 @@
 import numpy as np
 import pandas as pd
 import os
+import joblib
 from sklearn.preprocessing import StandardScaler
 
 RAW_FILE_PATH = r"data\raw\Nifty_50_1y_dataset.csv"
 PROCESSED_PATH = r"data\processed\kmeans_ready.csv"
+SCALER_PATH = r"models\scaler.pkl"
 
-def clean_and_scale(df):
+def clean_and_scale(df, scaler_path):
     close_prices = df.xs(key='Close', axis=1, level=1).copy()
     close_prices.drop(columns=['LTIM.NS', 'TATAMOTORS.NS'], inplace=True)
     close_prices = close_prices.ffill().dropna(axis=0)
@@ -28,6 +30,10 @@ def clean_and_scale(df):
         columns=clustering_data.columns
     )
 
+    os.makedirs(os.path.dirname(scaler_path), exist_ok=True)
+    joblib.dump(scaler, scaler_path)
+    print(f'Scaler saved to {scaler_path}')
+
     return k_means_ready
 
 def main():
@@ -35,7 +41,7 @@ def main():
     
     df = pd.read_csv(RAW_FILE_PATH,  header=[0,1], index_col=0)
 
-    df_clean = clean_and_scale(df)
+    df_clean = clean_and_scale(df, SCALER_PATH)
 
     os.makedirs(os.path.dirname(PROCESSED_PATH), exist_ok=True)
 
