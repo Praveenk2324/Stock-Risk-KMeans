@@ -9,14 +9,50 @@ stages:
       size: 833279
     - path: src/preprocess.py
       hash: md5
-      md5: b5191b32ada1764400900d5a9e340b6a
-      size: 1591
+      md5: 0955184fe9f5f60b0e8225c8740e0f9d
+      size: 1590
     outs:
-    - path: data/processed\kmeans_ready.csv
+    - path: data/processed/kmeans_ready.csv
       hash: md5
-      md5: 6319dee782ccb35b6613ea7608c415ad
-      size: 1950
+      md5: fdd7b17e8d8adb9ecd4432d56fe542c3
+      size: 2508
     - path: models/scaler.pkl
       hash: md5
       md5: dfef4b05f6860b38578d370723a6e8b4
       size: 903
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: data/processed/kmeans_ready.csv
+      hash: md5
+      md5: fdd7b17e8d8adb9ecd4432d56fe542c3
+      size: 2508
+    - path: src/train.py
+      hash: md5
+      md5: 9ba13b68947178b898334238e8300668
+      size: 1015
+    outs:
+    - path: data/processed/clustered_stocks.csv
+      hash: md5
+      md5: f748fe372359b34d60105f80e7d1b464
+      size: 2589
+    - path: models/kmeans_model.pkl
+      hash: md5
+      md5: d67fc594090d1c3aa0118863ef18ec0f
+      size: 1239
+  visualize:
+    cmd: python src/visualize.py
+    deps:
+    - path: data/processed/clustered_stocks.csv
+      hash: md5
+      md5: f748fe372359b34d60105f80e7d1b464
+      size: 2589
+    - path: src/visualize.py
+      hash: md5
+      md5: a66f62a97d63a3f1e60e5754ccb81758
+      size: 1684
+    outs:
+    - path: reports/cluster_visualization.html
+      hash: md5
+      md5: 6e1da0310f699014b9afafce4b220807
+      size: 4859724

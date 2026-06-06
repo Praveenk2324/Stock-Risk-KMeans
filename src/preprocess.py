@@ -45,7 +45,7 @@ def main():
 
     os.makedirs(os.path.dirname(PROCESSED_PATH), exist_ok=True)
 
-    df_clean.to_csv(PROCESSED_PATH, index=False)
+    df_clean.to_csv(PROCESSED_PATH, index=True)
     print(f"Cleaned dataset saved to {PROCESSED_PATH}\n")
 
 if __name__=="__main__":

@@ -5,5 +5,23 @@ stages:
       - src/preprocess.py
       - data/raw/Nifty_50_1y_dataset.csv
     outs:
-      - data/processed\kmeans_ready.csv
+      - data/processed/kmeans_ready.csv
       - models/scaler.pkl
+
+  train:
+      cmd: python src/train.py
+      deps:
+        - src/train.py
+        - data/processed/kmeans_ready.csv
+      outs:
+        - models/kmeans_model.pkl
+        - data/processed/clustered_stocks.csv
+
+  visualize:
+    cmd: python src/visualize.py
+    deps:
+      - src/visualize.py
+      - data/processed/clustered_stocks.csv
+    outs:
+      - reports/cluster_visualization.html:
+            cache: false
